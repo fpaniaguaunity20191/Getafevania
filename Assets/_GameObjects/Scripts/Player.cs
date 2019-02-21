@@ -5,10 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     [SerializeField] float linearSpeed;//Velocidad horizontal
     private Rigidbody2D rb2d;
+    private SpriteRenderer sr;
     private float x, y;
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
@@ -23,10 +25,24 @@ public class Player : MonoBehaviour {
     {
         if (Mathf.Abs(x) > 0) {
             rb2d.velocity = new Vector2(x * linearSpeed, 0);
+            /* Version 'tradicional'
+            if (x<0) {
+                sr.flipX = true;
+            } else {
+                sr.flipX = false;
+            }
+            */
+            /* Ternaria
+            sr.flipX = x < 0 ? true : false;
+            */
+            sr.flipX = (x < 0);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("ORANGE");
+        if (collision.CompareTag(Tags.ITEM)) {
+            collision.gameObject.GetComponent<Item>().DoAction();
+            //collision.gameObject.GetComponent("Item");
+        }
     }
 }
