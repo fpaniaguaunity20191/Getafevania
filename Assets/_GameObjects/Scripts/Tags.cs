@@ -4,4 +4,6 @@ using UnityEngine;
 
 public class Tags {
     public static string ITEM = "Item";
+    public static string PLAYER = "Player";
+    
 }

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212275152408815714}
   - component: {fileID: 58539298414762494}
   - component: {fileID: 114691067864710154}
+  - component: {fileID: 114413922021350290}
   m_Layer: 0
   m_Name: OrangeGem
   m_TagString: Item
@@ -57,6 +58,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.34
+--- !u!114 &114413922021350290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1538546743759384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8888163b66551f64e922e3990876c350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upperScaleLimit: 1.53
+  bottomScaleLimit: 0.5
+  scaleSpeed: 3
 --- !u!114 &114691067864710154
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     private static int points = 0;
     private static int level = 1;
-    private static int lives = 3;
+    private static int lives = 2;
 
     public static void AddPoints(int _points)
     {
