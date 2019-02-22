@@ -14,14 +14,17 @@ public class Player : MonoBehaviour {
     [SerializeField] float xForce;
     [SerializeField] float yForce;
 
+    private const string ANIM_WALK = "walking";
     private State state = State.InFloor;
     private Rigidbody2D rb2d;
     private SpriteRenderer sr;
+    private Animator animator;
     private float x, y;
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -45,22 +48,12 @@ public class Player : MonoBehaviour {
     }
     private void Walk()
     {
-        if (state == State.Jumping) {
-            return;
-        }
         if (Mathf.Abs(x) > 0) {
+            animator.SetBool(ANIM_WALK, true);
             rb2d.velocity = new Vector2(x * linearSpeed, rb2d.velocity.y);
-            /* Version 'tradicional'
-            if (x<0) {
-                sr.flipX = true;
-            } else {
-                sr.flipX = false;
-            }
-            */
-            /* Ternaria
-            sr.flipX = x < 0 ? true : false;
-            */
             sr.flipX = (x < 0);
+        } else {
+            animator.SetBool(ANIM_WALK, false);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
