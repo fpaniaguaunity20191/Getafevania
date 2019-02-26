@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bee : MonoBehaviour {
+    [SerializeField] int health;
     [SerializeField] Transform endPos;
     Vector3 initPos;
     [SerializeField] float speed;
@@ -21,4 +23,10 @@ public class Bee : MonoBehaviour {
         }
         transform.position = Vector2.Lerp(initPos, endPos.position, pct);
 	}
+
+    public void ReceiveDamage(int damage)
+    {
+        health = health - damage;
+        GetComponentInChildren<Slider>().value = health;
+    }
 }

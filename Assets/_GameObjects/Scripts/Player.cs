@@ -55,9 +55,8 @@ public class Player : MonoBehaviour {
         if (Mathf.Abs(x) > 0) {
             animator.SetBool(ANIM_WALK, true);
             rb2d.velocity = new Vector2(x * linearSpeed, rb2d.velocity.y);
-            sr.flipX = (x < 0);
-        } else {
-            animator.SetBool(ANIM_WALK, false);
+            transform.rotation = (x > 0) ? 
+                Quaternion.Euler(Vector2.zero) : Quaternion.Euler(new Vector2(0, 180));
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
