@@ -15,11 +15,18 @@ public class Bee : MonoBehaviour {
     }
 
     void Update () {
-        pct = pct + Time.deltaTime * speed; 
-        if (pct>=1 || pct <= 0)
+        pct = pct + Time.deltaTime * speed;
+        if (pct >= 1 || pct <= 0)
         {
             speed = speed * -1;
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+            if (pct > 1)
+            {
+                pct = 1;
+            } else if (pct < 0)
+            {
+                pct = 0;
+            }
         }
         transform.position = Vector2.Lerp(initPos, endPos.position, pct);
 	}

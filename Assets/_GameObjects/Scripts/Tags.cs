@@ -6,4 +6,5 @@ public class Tags {
     public static string ITEM = "Item";
     public static string PLAYER = "Player";
     public static string ENEMY = "Enemy";
+    public static string GLUE_OBJECT = "GlueObject";
 }

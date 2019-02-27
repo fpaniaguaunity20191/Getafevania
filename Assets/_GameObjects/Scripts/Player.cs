@@ -48,7 +48,6 @@ public class Player : MonoBehaviour {
             return;
         }
         rb2d.velocity = new Vector2(x * linearSpeed, jumpForce);
-        state = State.Jumping;
     }
     private void Walk()
     {
@@ -63,8 +62,21 @@ public class Player : MonoBehaviour {
     {
         if (collision.CompareTag(Tags.ITEM)) {
             collision.gameObject.GetComponent<Item>().DoAction();
-            //collision.gameObject.GetComponent("Item");
+        } else if (collision.CompareTag(Tags.GLUE_OBJECT))
+        {
+            transform.SetParent(collision.transform);
         }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        state = State.Jumping;
+        ChangeFriction(0f);
+        transform.SetParent(null);
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        state = State.InFloor;
+        ChangeFriction(1f);
     }
     public void ReceiveDamage(int damage)
     {
@@ -76,10 +88,10 @@ public class Player : MonoBehaviour {
         rb2d.AddForce((new Vector2(xForce * multiplier, yForce)) * force);
         state = State.Jumping;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void ChangeFriction(float newFriction)
     {
-        if (state == State.Jumping) {
-            state = State.InFloor;
-        }
+        PhysicsMaterial2D pm2d = GetComponent<CapsuleCollider2D>().sharedMaterial;
+        pm2d.friction = newFriction;
+        GetComponent<CapsuleCollider2D>().sharedMaterial = pm2d;
     }
 }
