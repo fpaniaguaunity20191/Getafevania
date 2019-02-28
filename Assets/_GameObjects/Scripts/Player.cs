@@ -20,11 +20,14 @@ public class Player : MonoBehaviour {
     private SpriteRenderer sr;
     private Animator animator;
     private float x, y;
+    private Vector2 lastCheckPointPos;
+
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        lastCheckPointPos = transform.position;
     }
     private void Update()
     {
@@ -56,6 +59,9 @@ public class Player : MonoBehaviour {
             rb2d.velocity = new Vector2(x * linearSpeed, rb2d.velocity.y);
             transform.rotation = (x > 0) ? 
                 Quaternion.Euler(Vector2.zero) : Quaternion.Euler(new Vector2(0, 180));
+        } else
+        {
+            animator.SetBool(ANIM_WALK, false);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -81,6 +87,10 @@ public class Player : MonoBehaviour {
     public void ReceiveDamage(int damage)
     {
         health = health - damage;
+        if (health <= 0)
+        {
+            Die();
+        }
     }
     public void SetImpulse(float force)
     {
@@ -93,5 +103,14 @@ public class Player : MonoBehaviour {
         PhysicsMaterial2D pm2d = GetComponent<CapsuleCollider2D>().sharedMaterial;
         pm2d.friction = newFriction;
         GetComponent<CapsuleCollider2D>().sharedMaterial = pm2d;
+    }
+    private void Die()
+    {
+        GameManager.SubstractLive();
+        transform.position = lastCheckPointPos;
+    }
+    public void SetCheckPointPosition(Vector2 newPos)
+    {
+        lastCheckPointPos = newPos;
     }
 }

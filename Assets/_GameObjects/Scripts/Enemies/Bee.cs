@@ -8,6 +8,7 @@ public class Bee : MonoBehaviour {
     [SerializeField] Transform endPos;
     Vector3 initPos;
     [SerializeField] float speed;
+    [SerializeField] int damage;
     float pct = 0;
     private void Awake()
     {
@@ -36,4 +37,13 @@ public class Bee : MonoBehaviour {
         health = health - damage;
         GetComponentInChildren<Slider>().value = health;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(Tags.PLAYER))
+        {
+            collision.gameObject.GetComponent<Player>().ReceiveDamage(damage);
+        }
+    }
+
 }

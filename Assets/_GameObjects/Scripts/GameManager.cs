@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+    public const int NUM_MAX_LIVES = 3;
     private static int points = 0;
     private static int level = 1;
     private static int lives = 2;
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour {
     public static void AddLive(int _lives)
     {
         lives = lives + _lives;
+    }
+    public static void SubstractLive()
+    {
+        lives = lives - 1;
     }
 
     public static int Level {

@@ -16,9 +16,16 @@ public class Canvas : MonoBehaviour {
 	
 	void Update () {
         txtScore.text = GameManager.Points.ToString();
+        //Desactivamos todos los corazones
+        for (int i = 0; i < GameManager.NUM_MAX_LIVES; i++)
+        {
+            imgLives[i].enabled = false;
+        }
+        //Activamos los corazones correspondientes a la vidas que me quedan
         for (int i = 0; i < GameManager.Lives; i++) {
             imgLives[i].enabled = true;
         }
+        //Si pulsa 'scape' muestra el menu
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             panelMenu.SetActive(!panelMenu.activeSelf);

@@ -5,6 +5,7 @@ using UnityEngine;
 public class FragileBox : MonoBehaviour {
     public float delay;
     public int unidades;
+    public float speed;
     private bool cayendo = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -22,8 +23,7 @@ public class FragileBox : MonoBehaviour {
     {
         for(int i = 0; i < unidades; i++)
         {
-            transform.Translate(0, -Time.deltaTime, 0);
-
+            transform.Translate(0, -Time.deltaTime * speed, 0);
             yield return null;
         }
     }
