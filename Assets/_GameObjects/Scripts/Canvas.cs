@@ -43,4 +43,5 @@ public class Canvas : MonoBehaviour {
         panelMenu.SetActive(false);
         Time.timeScale = 1;
     }
+    
 }

@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
     private SpriteRenderer sr;
     private Animator animator;
     private float x, y;
+    private float xExternal;
     private Vector2 lastCheckPointPos;
 
     private void Awake()
@@ -32,6 +33,10 @@ public class Player : MonoBehaviour {
     private void Update()
     {
         x = Input.GetAxis("Horizontal");
+        if (x == 0)
+        {
+            x = xExternal;
+        }
         y = Input.GetAxis("Vertical");
         if (Input.GetKeyDown(KeyCode.Space)) {
             Jump();
@@ -112,5 +117,22 @@ public class Player : MonoBehaviour {
     public void SetCheckPointPosition(Vector2 newPos)
     {
         lastCheckPointPos = newPos;
+    }
+
+    public void SetExternalRight()
+    {
+        xExternal = 1;
+    }
+    public void SetExternalLeft()
+    {
+        xExternal = -1;
+    }
+    public void SetExternalJump()
+    {
+        Jump();
+    }
+    public void SetExternalFire()
+    {
+        GetComponentInChildren<Weapon>().Fire();
     }
 }
